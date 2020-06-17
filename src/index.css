@@ -1,45 +1,182 @@
 body{
   margin: 0;
+  font-family: 'Alfa Slab One';
+  font-size: 25px;
+  background-color: floralwhite;
 }
 
+/* HEADER CONTAINER */
 .headerContainer {
   width: 100%;
-  height: 50px;
-  background-color: red;
+  height: 60px;
+  background-color: peachpuff;
+  /* border-top: 1px solid black; */
   margin: 0;
   display: flex;
   justify-content: center;
+  bottom: 0;
+  position: fixed;
+  
 }
+
+.displayPoem {
+  width: 100%;
+}
+
+.genInputBut {
+  font-family: 'Marck Script';
+  border: none;
+  font-size: 20px;
+  background-color: white;
+  padding-right: 15px;
+  padding-left: 15px;
+  border: 2px solid darkslategray;
+  border-radius: 4px;
+}
+
+.countdown {
+/* margin-right: 60px; */
+width: 250px;
+margin-left: 90px;
+}
+
+.countdown p {
+  margin-top: 14px;
+  }
+
+.displayCount {
+  margin-left: 40px;
+  width: 300px;
+}
+
+.displayCount p {
+  margin-top: 14px;
+ 
+}
+
+.title p {
+  margin-top: 14px;
+  margin-left: -225px;
+  padding-left: 8px;
+  width: 200px;
+  color: darkslategray;
+  border-bottom: 4px solid dodgerblue;
+  margin-right: 30px;
+}
+
+.directions p {
+  font-size: 12px;
+  display: inline-block;
+  width: 300px;
+  margin-right: -225px;
+  margin-left: -50px;
+margin-top: 7px;
+color: darkslategray;
+padding-right: 2px;
+padding-left: 7px;
+  border-left: 4px solid dodgerblue;
+  border-right: 4px solid dodgerblue;
+}
+
+/* MAIN CONTAINER */
 
 .mainContainer {
   display: flex;
   justify-content: center;
-
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
-
-.flex-item-main {
-  width: 33%;
-}
-
-.mainImage img {
-  display: block;
-  width: 100%;
-  margin-left: auto;
-  margin: 3%;
-}
-
 
 .textInputs {
   list-style-type: none;
-  display: block;
+  height: 25px;
+  margin-left: 98px;
 }
+
+.submitThoughts {
+margin-left: 100px;
+width: 120px;
+height: 30px;
+background-color: white;
+border: 1px solid black;
+font-family: 'Marck Script';
+font-size: 16px;
+border-radius: 3px;
+margin-top: 15px;
+}
+
+.thoughtsHeader {
+  margin-top: -30px;
+  margin-bottom:;
+  margin-left: 150px;
+  border-bottom: 3px solid dodgerblue;
+  width: 201px;
+  /* display: none; */
+}
+
+.inputsHeader {
+  margin-top: -30px;
+  margin-bottom: -20px;
+  margin-left: 140px;
+  border-bottom: 3px solid dodgerblue;
+  width: 145px;
+  /* display: none; */
+}
+
+.deletePoemButton {
+  font-family: 'Marck Script';
+  font-size: 12px;
+  border: 1px solid black;
+border-radius: 3px;
+background-color: white;
+margin-left: 10px;
+}
+
+.displayPoem {
+  font-family: 'Caveat';
+  font-size: 22px;
+  margin-bottom: 30px;
+  float: left;
+  /* padding-left: 8px; */
+  /* border-left: 2px solid dodgerblue; */
+
+}
+
+.displayPoem div {
+  /* width: 200px; */
+}
+
+.poemImage {
+  width: 40px;
+  margin-left: 10px;
+  float: right;
+  margin-top: -20px;
+  margin-right: -45px;
+}
+
+.form ol {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.mainImage {
+  display: block;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: auto;
+  border: 5px solid black;
+  /* border-radius: 4px; */
+}
+
 
 .textInputs input {
- height: 20px;
-}
+  height: 18px;
+  padding: 0;
+ }
 
-#submitThoughts {
- display: none;
+.flex-item-main {
+  width: 33%;
+  margin-left: auto;
 }
 
 /* #submitThoughts ol {
@@ -51,6 +188,8 @@ body{
 
 }
 
+
+
 .flex-item-main ol li span {
-  display: block;
+  /* display: inline-block; */
 }

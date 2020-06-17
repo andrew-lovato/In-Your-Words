@@ -108,3 +108,21 @@ countdownClock = async (ranNum) => {
        });
     }
 }
+
+
+const bubSort = (arr) => {
+    let notDone;
+    for(let i = arr.length; i > 0; i--){
+        notDone = true
+        for(let j = 0; j < i - 1; i++){
+            if(arr[j] > arr[j + 1])
+           let  temp = arr[j];
+            arr[j] = arr[j + 1]
+            arr[j + 1] = temp
+            notDone = false
+        }
+    }
+    if(notDone) break;
+    }
+return arr
+}
