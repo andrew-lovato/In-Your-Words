@@ -12,14 +12,14 @@ import { Title } from './Title.js'
 import { DisplayPoemList } from './containers/DisplayPoemList.js'
 import { Directions } from './Directions.js'
 // import { Inputs } from './containers/Inputs.js'
+import api from './api/api.js'
+
 
 class Game extends React.Component{
   constructor(props){
     super(props)
    
     this.timer = null
-
-  
 
     this.state = {
       currentImg: 0,

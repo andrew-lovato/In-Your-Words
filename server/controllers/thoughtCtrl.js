@@ -1,4 +1,4 @@
-const Thought = require('../models/thoughtModel.js/index.js')
+const Thought = require('../models/thoughtModel.js')
 
 createThought = (req, res) => {
     const body = req.body
@@ -85,6 +85,44 @@ deleteThought = async (req, res) => {
         return res.status(200).json({success: true, data: thought})
     }).catch(err => console.log(err))
 }
+
+getThoughtById = async (req, res) => {
+    await Thought.findOne({ _id: req.params.id }, (err, movie) => {
+        if(err){
+            return res.status(400).json({ success: false, error: err})
+        }
+
+        if(!movie){
+            return res
+                    .status(404)
+                    .json({ success: false, error: 'Thought not found'})
+        }
+        return res.status(200).json({ success: true, data: thought })
+    }).catch(err => console.log(err))
+}
+
+getThoughts = async (req, res) => {
+    await Thought.find({}, (err, thoughts) => {
+        if(err) {
+            return res.status(400).json({ success: false, error: err})
+        }
+        if(!movies.length) {
+            return res
+                    .status(404)
+                    .json({ success: false, error: 'Thoughts not found'})
+        }
+        return res.status(200).json({ success: true, data: thoughts})
+    }).catch(err => console.log(err))
+}
+
+module.exports = {
+    createThought,
+    updateThought,
+    deleteThought,
+    getThoughts,
+    getThoughtById,
+}
+
 
 
 
