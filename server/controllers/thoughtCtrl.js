@@ -102,12 +102,12 @@ getThoughtById = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
-getThoughts = async (req, res) => {
+getAllThoughts = async (req, res) => {
     await Thought.find({}, (err, thoughts) => {
         if(err) {
             return res.status(400).json({ success: false, error: err})
         }
-        if(!movies.length) {
+        if(!thoughts.length) {
             return res
                     .status(404)
                     .json({ success: false, error: 'Thoughts not found'})
@@ -120,7 +120,7 @@ module.exports = {
     insertThought,
     updateThought,
     deleteThought,
-    getThoughts,
+    getAllThoughts,
     getThoughtById,
 }
 

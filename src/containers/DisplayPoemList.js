@@ -13,7 +13,7 @@
                 </div>
                 <ol>
                     {props.thoughtsProp.map((thought, index)=> 
-                        <DisplayPoem className='displayPoem' img={images[thought.image]} key={index} onClick={() => props.onClick(index)} name={props.name} value={thought.thought} />
+                        <DisplayPoem className='displayPoem' img={images[thought.currentImg]} key={index} onClick={() => props.onClick(index)} name={props.name} value={thought.newThought} />
                     )}
                 </ol>
             </div> 

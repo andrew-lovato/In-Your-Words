@@ -26,7 +26,7 @@ class Game extends React.Component{
       timer: null,
       ranNum: null,
       thoughts: [],
-      newThought: {},
+      newThought: [],
       thought: [],
       isSubmitted: false
     }
@@ -42,6 +42,7 @@ class Game extends React.Component{
       images.data.data.forEach(imageObj => {
        newArr.push(imageObj.images) 
       })
+      this.handleGetAllThoughts()
 
       this.setState({
         images: newArr,
@@ -49,18 +50,33 @@ class Game extends React.Component{
     })
   }
 
-  // handleInsertThought = async () => {
-  //   const { newThought } = this.state
 
-  //   const payload = { newThought }
-  //   console.log(payload)
-  //   await api.insertThought(payload).then(res => {
-  //     console.log(payload)
-  //     this.setState({
-  //       newThought: {}
-  //     })
-  //   }) 
-  // }
+
+  handleInsertThought = async () => {
+    const { newThought, currentImg } = this.state
+    const payload = { newThought, currentImg}
+
+    await api.insertThought(payload).then(res => {
+      console.log(payload)
+      this.setState({
+        newThought: []
+      })
+    }) 
+  }
+
+  handleGetAllThoughts = async () => {
+    await api.getAllThoughts().then(thoughts => {
+      let newThoughtArr = []
+      thoughts.data.data.forEach(thoughtObj => {
+        newThoughtArr.unshift(thoughtObj)
+      })
+   console.log(newThoughtArr)
+      this.setState({
+        thoughts: newThoughtArr,
+      })
+    })
+  }
+
 
 modifiedRanNum = (newRanNum) => {
   if(newRanNum < 5) return newRanNum * 70
@@ -89,26 +105,18 @@ handleChange(event, index) {
   const inputs = [...this.state.thought];
   inputs[index] = event.target.value
 
-//   let rawThought = inputs
-//   let cleanThought = rawThought.map(word => word.trim()).filter(word => word.length > 0)
-
-//   let newThoughtObj = {
-//     image: null,
-//     thought: null
-//   };
-//   let thought = cleanThought.map((word, i) => {
-//     if(i === cleanThought.length - 1){
-//       return word.trim()
-//     } else {
-//       return word.trim() + ',' + ' ';
-//     }
-//   });
-
-//  newThoughtObj.thought = thought
-//  newThoughtObj.image = this.state.currentImg
+  let rawThought = inputs
+  let cleanThought = rawThought.map(word => word.trim()).filter(word => word.length > 0)
+  let thought = cleanThought.map((word, i) => {
+    if(i === cleanThought.length - 1){
+      return word.trim()
+    } else {
+      return word.trim() + ',' + ' ';
+    }
+  });
 
   this.setState({
-    // newThought: newThoughtObj,
+    newThought: thought,
     thought: inputs
   });
 }
@@ -143,75 +151,31 @@ handleChange(event, index) {
     });
   }
 
-    ifTimeRunsOut(){
+    async ifTimeRunsOut(){
       if(this.state.timer === 0) {
           clearTimeout(this.timer)
-          // event.preventDefault();
-          let rawThought = this.state.thought
-          let cleanThought = rawThought.map(word => word.trim()).filter(word => word.length > 0)
-          let newThoughtObj = {
-            image: null,
-            thought: null
-          };
-          let thought = cleanThought.map((word, i) => {
-            if(i === cleanThought.length - 1){
-              return word.trim()
-            } else {
-              return word.trim() + ',' + ' ';
-            }
-          });
-    
-         newThoughtObj.thought = thought
-         newThoughtObj.image = this.state.currentImg
-    
-          const newThoughtArr = this.state.thoughts.slice()
-          newThoughtArr.push(newThoughtObj)
+          await this.handleInsertThought()
+          this.handleGetAllThoughts()
           this.setState({
-            thoughts: newThoughtArr,
             thought: [],
             ranNum: null,
             timer: null
-          })
+        })
     }
   }
 
-   handleSubmit(event) {
+  async handleSubmit(event) {
      if(event){
       clearTimeout(this.timer)
       event.preventDefault();
-      let rawThought = this.state.thought
-      let cleanThought = rawThought.map(word => word.trim()).filter(word => word.length > 0)
-
-      let newThoughtObj = {
-        image: null,
-        thought: null
-      };
-      let thought = cleanThought.map((word, i) => {
-        if(i === cleanThought.length - 1){
-          return word.trim()
-        } else {
-          return word.trim() + ',' + ' ';
-        }
-      });
-      // this.handleInsertThought()
-     newThoughtObj.thought = thought
-     newThoughtObj.image = this.state.currentImg
-
-      const newThoughtArr = this.state.thoughts.slice()
-      console.log(newThoughtObj)
-      newThoughtArr.push(newThoughtObj)
+      await this.handleInsertThought()
+      this.handleGetAllThoughts()
       this.setState({
-        thoughts: newThoughtArr,
-        // newThought: newThoughtObj,
         thought: [],
         ranNum: null,
         timer: null
       })
-      
-      console.log(this.state.thought)
-     
   }
-
 }
 
   handleDeleteClick(index){
