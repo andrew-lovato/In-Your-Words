@@ -4,7 +4,7 @@ const ImageCtrl = require('../controllers/imageCtrl.js')
 
 const router = express.Router()
 
-router.get('/', ImageCtrl.getImages)
-router.post('/images', ImageCtrl.createImage)
+router.get('/images', ImageCtrl.getImages)
+router.post('/images', ImageCtrl.createImages)
 
 module.exports = router

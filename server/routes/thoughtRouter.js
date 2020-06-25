@@ -5,8 +5,8 @@ const ThoughtCtrl = require('../controllers/thoughtCtrl')
 
 const router = express.Router()
 
-router.post('/', ThoughtCtrl.createThought)
-router.delete('/:id', ThoughtCtrl.deleteThought)
+router.post('/thought', ThoughtCtrl.insertThought)
+router.delete('/thought/:id', ThoughtCtrl.deleteThought)
 
 router.put('/thought/:id', ThoughtCtrl.updateThought)
 router.get('/thought/:id', ThoughtCtrl.getThoughtById)

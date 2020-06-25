@@ -1,4 +1,18 @@
-const Image = require('../models/imageModel.js')
+const Images = require('../models/imageModel.js')
+
+// const data = ['https://uploads3.wikiart.org/images/wladyslaw-strzeminski/cover-for-a-book-by-julian-przybo-z-ponad-1930.jpg!Large.jpg',
+// 'https://uploads6.wikiart.org/images/pablo-picasso/girl-on-the-ball-1905.jpg!Large.jpg',
+//  'https://uploads8.wikiart.org/images/salvador-dali/et-post-buccellam-introivit-in-eum-satanas-psalms-40-10-1964.jpg']
+ 
+const data = [{
+    images: 'https://uploads3.wikiart.org/images/wladyslaw-strzeminski/cover-for-a-book-by-julian-przybo-z-ponad-1930.jpg!Large.jpg'
+},
+{
+    images: 'https://uploads6.wikiart.org/images/pablo-picasso/girl-on-the-ball-1905.jpg!Large.jpg'
+},
+{
+    images: 'https://uploads8.wikiart.org/images/salvador-dali/et-post-buccellam-introivit-in-eum-satanas-psalms-40-10-1964.jpg'
+}]
 
 getImages = async (req, res) => {
     await Images.find({}, (err, images) => {
@@ -14,27 +28,36 @@ getImages = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
-createImage = (req, res) => {
-    const body = req.body
+createImages = () => {
+    Images.deleteMany({}, (err, images) => {
+        if(err) {
+            console.log(err)
+        }
+        return console.log(images)
+    })
 
-    if(!body) {
-        return res.status(400).json({
-            success: false,
-            error: 'You must provide an image',
-        });
-    }
+    data.forEach(images => {
+    const image = new Images(images)
     
-    const image = new Images(body)
+    image
+       .save()
+       .then(() => {
+     console.log('added images!')
+       }).catch(error => {
+           console.log(error)
+       })
+  })
+     
     
-    if(!image) {
-        return res.status(400).json({ success: false, error: err })
-    }
+    
+  
 
+    
 }
 
 
 
 module.exports = {
     getImages,
-    createImage,
+    createImages,
 }

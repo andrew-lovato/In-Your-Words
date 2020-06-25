@@ -4,16 +4,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { Image } from './Image.js'
 import { Button } from './Button.js'
-import { images } from './assets/images.js'
+// import { images } from './assets/images.js'
 import { Countdown } from './Countdown.js'
 import { DisplayCount } from './DisplayCount.js'
 import { Input } from './Input.js'
 import { Title } from './Title.js'
 import { DisplayPoemList } from './containers/DisplayPoemList.js'
 import { Directions } from './Directions.js'
-// import { Inputs } from './containers/Inputs.js'
 import api from './api/api.js'
-
+// import { Inputs } from './containers/Inputs.js'
 
 class Game extends React.Component{
   constructor(props){
@@ -22,10 +21,12 @@ class Game extends React.Component{
     this.timer = null
 
     this.state = {
+      images: [],
       currentImg: 0,
       timer: null,
       ranNum: null,
       thoughts: [],
+      newThought: {},
       thought: [],
       isSubmitted: false
     }
@@ -34,6 +35,32 @@ class Game extends React.Component{
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleDeleteClick = this.handleDeleteClick.bind(this)
   }
+
+  componentDidMount = async () => {
+    await api.getAllImages().then(images => {
+      let newArr = []
+      images.data.data.forEach(imageObj => {
+       newArr.push(imageObj.images) 
+      })
+
+      this.setState({
+        images: newArr,
+      })
+    })
+  }
+
+  // handleInsertThought = async () => {
+  //   const { newThought } = this.state
+
+  //   const payload = { newThought }
+  //   console.log(payload)
+  //   await api.insertThought(payload).then(res => {
+  //     console.log(payload)
+  //     this.setState({
+  //       newThought: {}
+  //     })
+  //   }) 
+  // }
 
 modifiedRanNum = (newRanNum) => {
   if(newRanNum < 5) return newRanNum * 70
@@ -61,7 +88,27 @@ handleChange(event, index) {
   console.log(event)
   const inputs = [...this.state.thought];
   inputs[index] = event.target.value
+
+//   let rawThought = inputs
+//   let cleanThought = rawThought.map(word => word.trim()).filter(word => word.length > 0)
+
+//   let newThoughtObj = {
+//     image: null,
+//     thought: null
+//   };
+//   let thought = cleanThought.map((word, i) => {
+//     if(i === cleanThought.length - 1){
+//       return word.trim()
+//     } else {
+//       return word.trim() + ',' + ' ';
+//     }
+//   });
+
+//  newThoughtObj.thought = thought
+//  newThoughtObj.image = this.state.currentImg
+
   this.setState({
+    // newThought: newThoughtObj,
     thought: inputs
   });
 }
@@ -72,7 +119,7 @@ handleChange(event, index) {
     this.countdownClock(newRanNum)
     this.generateStateInputs(newRanNum)
     let current = this.state.currentImg;
-    let next = ++current % images.length;
+    let next = ++current % this.state.images.length;
     this.ifTimeRunsOut()
     this.setState({
       currentImg: next,
@@ -134,8 +181,7 @@ handleChange(event, index) {
       event.preventDefault();
       let rawThought = this.state.thought
       let cleanThought = rawThought.map(word => word.trim()).filter(word => word.length > 0)
-      console.log(cleanThought)
-    
+
       let newThoughtObj = {
         image: null,
         thought: null
@@ -147,18 +193,23 @@ handleChange(event, index) {
           return word.trim() + ',' + ' ';
         }
       });
-
+      // this.handleInsertThought()
      newThoughtObj.thought = thought
      newThoughtObj.image = this.state.currentImg
 
       const newThoughtArr = this.state.thoughts.slice()
+      console.log(newThoughtObj)
       newThoughtArr.push(newThoughtObj)
       this.setState({
         thoughts: newThoughtArr,
+        // newThought: newThoughtObj,
         thought: [],
         ranNum: null,
         timer: null
       })
+      
+      console.log(this.state.thought)
+     
   }
 
 }
@@ -177,7 +228,7 @@ handleChange(event, index) {
       <div>
         <div className="mainContainer">
         <DisplayPoemList thoughtsProp={this.state.thoughts} onClick={this.handleDeleteClick} name='Erase Thought' /> 
-        <Image className="flex-item-main" className='mainImage' src={images[this.state.currentImg]} />
+        <Image className="flex-item-main" className='mainImage' src={this.state.images[src]} />
         {/* <Inputs hasInputs={hasInputs} onSubmit={this.handleSubmit} thoughtProp={this.state.thought} onChange={event => { this.handleChange(event) }} /> */}
        
         <form className="flex-item-main form" onSubmit={this.handleSubmit}>

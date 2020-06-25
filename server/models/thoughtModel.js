@@ -3,8 +3,8 @@ const Schema = mongoose.Schema
 
 const Thought = new Schema(
     {
-        image: { type: String },
-        thought: { type: String }
+        image: { type: Number },
+        thought: { type: Array }
     }
 )
 

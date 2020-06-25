@@ -1,6 +1,7 @@
 const Thought = require('../models/thoughtModel.js')
 
-createThought = (req, res) => {
+
+insertThought = (req, res) => {
     const body = req.body
 
     if(!body) {
@@ -116,7 +117,7 @@ getThoughts = async (req, res) => {
 }
 
 module.exports = {
-    createThought,
+    insertThought,
     updateThought,
     deleteThought,
     getThoughts,

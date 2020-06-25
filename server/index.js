@@ -7,10 +7,13 @@ const thoughtRouter = require('./routes/thoughtRouter')
 const imagesRouter = require('./routes/imagesRouter')
 
 const seedDB = require('./data/db/seeds')
-seedDB()
+
+const { createImages } = require('./controllers/imageCtrl')
 
 const app = express()
 const apiPort = 3000;
+
+createImages()
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(cors())
@@ -25,8 +28,7 @@ app.get('/', (req, res) => {
 app.use('/api', thoughtRouter)
 app.use('/api', imagesRouter)
 
-app.use('/', thoughtRouter)
-app.use('/', imagesRouter)
+
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
 
