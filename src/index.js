@@ -82,10 +82,6 @@ class Game extends React.Component{
     })  
   }
 
-  handleDeleteThought = async () => {
-
-  }
-
 modifiedRanNum = (newRanNum) => {
   if(newRanNum < 5) return newRanNum * 70
   if(newRanNum < 10) return newRanNum * 50
@@ -94,7 +90,6 @@ modifiedRanNum = (newRanNum) => {
 
 countdownClock = async (newRanNum) => {
   const startingNum = this.modifiedRanNum(newRanNum)
-// const startingNum = newRanNum * 30;
 for(let i = startingNum; i >= 0; i--) {
     await new Promise(resolve => {
         this.timer = setTimeout(() => {
@@ -114,9 +109,9 @@ handleChange(event, index) {
   inputs[index] = event.target.value
 
   let rawThought = inputs
-  let cleanThought = rawThought.map(word => word.trim()).filter(word => word.length > 0)
+  let cleanThought = rawThought.filter(word => word.length > 0)
   let thought = cleanThought.map((word, i) => {
-    if(i === cleanThought.length - 1){
+    if(i === cleanThought.length - 1 || i === cleanThought[0]){
       return word.trim()
     } else {
       return word.trim() + ',' + ' ';
@@ -144,8 +139,8 @@ handleChange(event, index) {
   }
 
   genRanNum(){
-    let rNum = Math.floor(Math.random() * 20);
-   if(rNum === 0) return 20
+    let rNum = Math.floor(Math.random() * 15);
+   if(rNum === 0) return 15
      return rNum
   }
 
@@ -185,8 +180,6 @@ handleChange(event, index) {
       })
   }
 }
-
-
 
   render(){
     let src = this.state.currentImg;

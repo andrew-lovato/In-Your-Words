@@ -25,23 +25,28 @@ body{
 
 .genInputBut {
   font-family: 'Marck Script';
+  color: black;
   border: none;
   font-size: 20px;
   background-color: white;
   padding-right: 15px;
   padding-left: 15px;
-  border: 2px solid darkslategray;
+  border: 2px solid black;
   border-radius: 4px;
+
 }
 
 .countdown {
 /* margin-right: 60px; */
 width: 250px;
 margin-left: 90px;
+
 }
 
 .countdown p {
   margin-top: 14px;
+  color: darkslategray;
+
   }
 
 .displayCount {
@@ -51,17 +56,19 @@ margin-left: 90px;
 
 .displayCount p {
   margin-top: 14px;
- 
+  color: darkslategray;
+
 }
 
 .title p {
-  margin-top: 14px;
+  margin-top: 11px;
   margin-left: -225px;
   padding-left: 8px;
   width: 200px;
   color: darkslategray;
-  border-bottom: 4px solid dodgerblue;
+  border-bottom: 8px solid dodgerblue;
   margin-right: 30px;
+  
 }
 
 .directions p {
@@ -89,8 +96,11 @@ padding-left: 7px;
 
 .textInputs {
   list-style-type: none;
-  height: 25px;
   margin-left: 98px;
+}
+
+.textInputs input {
+
 }
 
 .submitThoughts {
@@ -111,6 +121,8 @@ margin-top: 15px;
   margin-left: 150px;
   border-bottom: 3px solid dodgerblue;
   width: 201px;
+  color: darkslategray;
+
   /* box-shadow: 20px 10px darkslategray; */
 }
 
@@ -120,6 +132,8 @@ margin-top: 15px;
   margin-left: 140px;
   border-bottom: 3px solid dodgerblue;
   width: 145px;
+  color: darkslategray;
+
 }
 
 .deletePoemButton {
