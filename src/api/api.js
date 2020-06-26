@@ -7,7 +7,7 @@ const api = axios.create({
 export const insertThought = payload => api.post('/thought', payload)
 export const getAllThoughts = () => api.get('/thoughts')
 export const updateThoughtById = (id, payload) => api.put(`/thought/${id}`, payload)
-export const deleteThoughtById = id => api.delete(`/thought/${id}`)
+export const deleteThought = id => api.delete(`/thought/${id}`)
 export const getThoughtById = id => api.get(`/thought/${id}`)
 
 export const getAllImages = () => api.get('/images')
@@ -17,7 +17,7 @@ const apis = {
     insertThought,
     getAllThoughts,
     updateThoughtById,
-    deleteThoughtById,
+    deleteThought,
     getThoughtById,
 
     getAllImages,

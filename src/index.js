@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { Image } from './Image.js'
 import { Button } from './Button.js'
-// import { images } from './assets/images.js'
 import { Countdown } from './Countdown.js'
 import { DisplayCount } from './DisplayCount.js'
 import { Input } from './Input.js'
@@ -50,8 +49,6 @@ class Game extends React.Component{
     })
   }
 
-
-
   handleInsertThought = async () => {
     const { newThought, currentImg } = this.state
     const payload = { newThought, currentImg}
@@ -70,13 +67,24 @@ class Game extends React.Component{
       thoughts.data.data.forEach(thoughtObj => {
         newThoughtArr.unshift(thoughtObj)
       })
-   console.log(newThoughtArr)
       this.setState({
         thoughts: newThoughtArr,
       })
     })
   }
+  
+  handleDeleteClick(index){
+    let remThought = this.state.thoughts.filter(thought => thought !== this.state.thoughts[index])
 
+    api.deleteThought(this.state.thoughts[index]._id)
+    return this.setState({
+      thoughts: remThought
+    })  
+  }
+
+  handleDeleteThought = async () => {
+
+  }
 
 modifiedRanNum = (newRanNum) => {
   if(newRanNum < 5) return newRanNum * 70
@@ -178,12 +186,7 @@ handleChange(event, index) {
   }
 }
 
-  handleDeleteClick(index){
-    let remThought = this.state.thoughts.filter(thought => thought !== this.state.thoughts[index])
-    return this.setState({
-      thoughts: remThought
-    })  
-  }
+
 
   render(){
     let src = this.state.currentImg;
