@@ -1,20 +1,27 @@
 import React from 'react'
 import { Input } from '../Input.js'
+import '../index.css';
+
 
 export const Inputs = (props) => {
     return (
-    <form className="flex-item-main form" onSubmit={props.onSubmit}>
-        <ol>
-            {props.thoughtProp.map((input, index) => (
-            <Input type='text' onSubmit={props.onSubmit} key={index} value={input} onChange={props.onChange} className='textInputs' />
-            ))}
-            { props.hasInputs ? (
-            <input className='submitThoughts' type='submit' value='Submit Thought!' />
-            ) : (
-            null
-            )}
-        </ol>
-    </form>
+        <form className="flex-item-main form" onSubmit={props.onSubmit}>
+        <div>
+                    <h4>
+                      <p className='inputsHeader'>Thoughts:</p>  
+                    </h4>
+                </div>
+            <ol>
+              {props.thoughtProp.map((input, index) => (
+                <Input type='text' key={index} value={input} onChange={event => props.onChange(event, index)} className='textInputs' />
+              ))}
+              { props.hasInputs ? (
+                <input className='submitThoughts' type='submit' value='Submit Thought!' />
+              ) : (
+                null
+              )}
+            </ol>
+          </form>
     )
 }
 

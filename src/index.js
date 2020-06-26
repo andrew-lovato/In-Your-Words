@@ -11,7 +11,7 @@ import { Title } from './Title.js'
 import { DisplayPoemList } from './containers/DisplayPoemList.js'
 import { Directions } from './Directions.js'
 import api from './api/api.js'
-// import { Inputs } from './containers/Inputs.js'
+import { Inputs } from './containers/Inputs.js'
 
 class Game extends React.Component{
   constructor(props){
@@ -33,6 +33,7 @@ class Game extends React.Component{
     this.handleClick = this.handleClick.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleDeleteClick = this.handleDeleteClick.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount = async () => {
@@ -105,6 +106,7 @@ for(let i = startingNum; i >= 0; i--) {
 
 handleChange(event, index) {
   console.log(event)
+  console.log(this.state.thought)
   const inputs = [...this.state.thought];
   inputs[index] = event.target.value
 
@@ -154,6 +156,8 @@ handleChange(event, index) {
     });
   }
 
+
+
     async ifTimeRunsOut(){
       if(this.state.timer === 0) {
           clearTimeout(this.timer)
@@ -189,25 +193,7 @@ handleChange(event, index) {
         <div className="mainContainer">
         <DisplayPoemList thoughtsProp={this.state.thoughts} onClick={this.handleDeleteClick} name='Erase Thought' /> 
         <Image className="flex-item-main" className='mainImage' src={this.state.images[src]} />
-        {/* <Inputs hasInputs={hasInputs} onSubmit={this.handleSubmit} thoughtProp={this.state.thought} onChange={event => { this.handleChange(event) }} /> */}
-       
-        <form className="flex-item-main form" onSubmit={this.handleSubmit}>
-        <div>
-                    <h4>
-                      <p className='inputsHeader'>Thoughts:</p>  
-                    </h4>
-                </div>
-            <ol>
-              {this.state.thought.map((input, index) => (
-                <Input type='text' key={index} value={input} onChange={event => { this.handleChange(event, index) }} className='textInputs' />
-              ))}
-              { hasInputs ? (
-                <input className='submitThoughts' type='submit' value='Submit Thought!' />
-              ) : (
-                null
-              )}
-            </ol>
-          </form>
+        <Inputs hasInputs={hasInputs} onSubmit={this.handleSubmit} thoughtProp={this.state.thought} onChange={this.handleChange} />
        </div>
         <div className='headerContainer'>
           <Title />
